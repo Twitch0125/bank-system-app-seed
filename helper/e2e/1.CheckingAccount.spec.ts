@@ -64,7 +64,7 @@ describe("A checking account", () => {
             let withdrawAttempt = checking.withdrawMoney(1, `withdrawal test ${i}`, transactionTypes[Math.floor(Math.random() * (3 + 1))]);
             expect(checking.balance).toBeCloseTo(initialBalance - i, 0, "Available balance is not what was expected.");
             expect(withdrawAttempt.success).toBeTruthy(`Unable to withdraw money when enough balance is available at ${i}`);
-            expect(withdrawAttempt.amount).toBe(1);
+            expect(withdrawAttempt.amount).toBe(-1);
             expect(withdrawAttempt.resultBalance).toBe(initialBalance - i);
         }
     });
