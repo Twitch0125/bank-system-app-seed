@@ -16,9 +16,9 @@ describe("A checking account", () => {
         expect(checking.accountHistory.length).toBe(12, "accountHistory length does not match");
         let lastTransaction = checking.accountHistory[checking.accountHistory.length - 1];
         expect(lastTransaction.success).toBeTruthy();
-        expect(lastTransaction.amount).toBe(0.84);
+        expect(lastTransaction.amount).toBeCloseTo(0.84);
         expect(lastTransaction.errorMessage).toBe("");
-        expect(lastTransaction.resultBalance).toBe(1010.05);
+        expect(lastTransaction.resultBalance).toBeCloseTo(1010.05);
         expect(checking.balance).toBeCloseTo(1010.05);
     });
 
