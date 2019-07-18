@@ -9,11 +9,14 @@ export class CheckingAccount implements Account {
   balance: number;
   accountHistory: Transaction[];
   accountHolderBirthDate?: Date;
-  interestRate: 0.01;
+  interestRate: number;
+  createdDate: Date;
   constructor(currentDate: Date) {
     this.balance = ONE_THOUSAND;
     this.currentDate = currentDate;
+    this.createdDate = currentDate;
     this.accountHistory = [];
+    this.interestRate = 0.01;
   }
   withdrawMoney(
     amount: number,
