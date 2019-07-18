@@ -1,18 +1,20 @@
-import {Transaction} from "./Transaction";
-import {TransactionOrigin} from "../enums/TransactionOrigin";
+import { Transaction } from "./Transaction";
+import { TransactionOrigin } from "../enums/TransactionOrigin";
 
 export interface Account {
-    currentDate: Date;
-    balance: number;
-    accountHistory: Transaction[];
-    accountHolderBirthDate?: Date;
+  currentDate: Date;
+  balance: number;
+  accountHistory: Transaction[];
+  createdDate: Date;
+  accountHolderBirthDate?: Date;
 
-    withdrawMoney(amount: number,
-                  description: string,
-                  transactionOrigin: TransactionOrigin): Transaction;
+  withdrawMoney(
+    amount: number,
+    description: string,
+    transactionOrigin: TransactionOrigin
+  ): Transaction;
 
-    depositMoney(amount: number,
-                 description: string): Transaction;
+  depositMoney(amount: number, description: string): Transaction;
 
-    advanceDate(numberOfDays: number);
+  advanceDate(numberOfDays: number);
 }
