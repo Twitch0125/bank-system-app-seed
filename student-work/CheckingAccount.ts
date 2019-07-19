@@ -11,10 +11,10 @@ export class CheckingAccount implements Account {
   accountHolderBirthDate?: Date;
   interestRate: number;
   createdDate: Date;
-  constructor(currentDate: Date) {
+  constructor(date: Date) {
     this.balance = ONE_THOUSAND;
-    this.currentDate = currentDate;
-    this.createdDate = currentDate;
+    this.currentDate = date;
+    this.createdDate = new Date(date.valueOf());
     this.accountHistory = [];
     this.interestRate = 0.01;
   }
@@ -55,7 +55,7 @@ export class CheckingAccount implements Account {
     };
 
     if (amount > 0) {
-      this.balance += amount;
+      this.balance = +(this.balance+amount).toFixed(2);
       transaction.success = true;
       transaction.errorMessage = "";
       transaction.resultBalance = this.balance;
@@ -68,13 +68,19 @@ export class CheckingAccount implements Account {
   //will advance this.currentDate by the given days, adding interest as it goes.
   advanceDate(numberOfDays: number) {
     //loop through each day, checking if its the first of the month, depositing interest if necessary
-    for (let i = 0; i < numberOfDays; i++) {
-      //if today is the first day of the month
+    for (let i = 0; i <= numberOfDays; i++) {
+      //skip the first month of interest
+      if (this.currentDate.valueOf() === this.createdDate.valueOf()) {
+        this.currentDate.setDate(this.currentDate.getDate() + 1);
+        //if today is the first day of the month
+      } else 
       if (this.currentDate.getDate() === 1) {
-        let amount: number = (this.balance * this.interestRate) / 12; //annual interest
+        let amount: number = +(this.balance * this.interestRate / 12).toFixed(2); //annual interest
         this.depositMoney(amount, `interest`);
+        this.currentDate.setDate(this.currentDate.getDate() + 1);
+      } else{
+        this.currentDate.setDate(this.currentDate.getDate() + 1);
       }
-      this.currentDate.setDate(this.currentDate.getDate() + 1);
     }
   }
 }
